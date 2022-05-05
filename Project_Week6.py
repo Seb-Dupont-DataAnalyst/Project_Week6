@@ -109,7 +109,7 @@ elif (panelChoice == 'The models'):
 
     st.write('You are in the "The models" panel.')
 
-else (panelChoice == 'SMS analysis'): 
+else: 
     
     smsToAnalyze = st.text_input('Type your message:')
 
