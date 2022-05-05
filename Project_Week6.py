@@ -1,3 +1,13 @@
+##########
+##### PROJECT: Project_Week6.py
+##### AUTHORS: 
+##### LAST UPDATE: 05/05/2022
+##########
+
+##########
+##### IMPORTS
+##########
+
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -16,8 +26,9 @@ import pandas as pd
 from tensorflow.keras import layers
 
 
-
-# CONFIG #
+##########
+##### CONFIG
+##########
 
 st.set_page_config(page_title="SMS analysis",
                    page_icon="📈",
@@ -51,6 +62,10 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
+##########
+##### FUNCTIONS
+##########
+
 def space(n):
     """
     :param n: number of spaces
@@ -62,10 +77,25 @@ def space(n):
 def load_df(url):
     return pd.read_csv(url)
 
-# DATA #
+
+##########
+##### DATASET
+##########
 
 df = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
 
 
+##########
+##### Set up sidebar.
+##########
+
 st.sidebar.title("Table des matières")
-week = st.sidebar.radio('Etapes de présentation :', ('Accueil', 'NLP et preprocessing', 'Présentation des modèles', 'Invite de saisie de SMS'))
+week = st.sidebar.radio(
+    'Etapes de présentation :',
+    ('Accueil', 'NLP et preprocessing', 'Présentation des modèles', 'Invite de saisie de SMS')
+    )
+
+
+##########
+##### Set up main app.
+##########
