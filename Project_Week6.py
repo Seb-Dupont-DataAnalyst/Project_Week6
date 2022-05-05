@@ -23,6 +23,7 @@ import io
 import re
 import string
 import pandas as pd
+import tensorflow
 from tensorflow.keras import layers
 
 
@@ -98,5 +99,18 @@ choice = st.sidebar.radio('Etapes de présentation :', ('Accueil', 'NLP et prepr
 
 
 if choice == 'Invite de saisie de SMS': 
-    title = st.text_input('Type your message')
-    st.write('Your message is', title)
+    
+    smsToAnalyze = st.text_input('Type your message')
+
+    startButton = st.button(
+        'Start the analysis'
+    )
+
+    if startButton:
+        
+        if (smsToAnalyze != ''):
+            st.write('Your message is " ', smsToAnalyze, '".')
+        else:
+            st.write('Please start to write a SMS before clicking on the button.')
+    else:
+        st.write('')
