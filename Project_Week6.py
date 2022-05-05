@@ -65,7 +65,7 @@ def load_df(url):
 
 # DATA #
 
-#df = pd.read_csv("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/dfsms_nlp.csv")
+df = pd.read_csv("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
 
 
 st.sidebar.title("Table des matières")
