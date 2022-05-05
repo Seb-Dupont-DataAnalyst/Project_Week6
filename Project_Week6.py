@@ -19,11 +19,7 @@ from tensorflow.keras import layers
 
 # CONFIG #
 
-<<<<<<< HEAD
 st.set_page_config(page_title="SMS analysis",
-=======
-st.set_page_config(page_title="SMS analysis",
->>>>>>> c76547a8253cea605205327d7fe30bafa968da47
                    page_icon="📈",
                    layout="wide",
                    initial_sidebar_state="expanded")
