@@ -91,26 +91,37 @@ df = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_W
 ##########
 
 st.sidebar.title("Table des matières")
-choice = st.sidebar.radio('Etapes de présentation :', ('Accueil', 'NLP et preprocessing', 'Présentation des modèles', 'Invite de saisie de SMS'))
+panelChoice = st.sidebar.radio('Presentation:', ('Home', 'Preprocessing & NLP', 'The models', 'SMS analysis'))
 
 ##########
 ##### Set up main app.
 ##########
 
 
-if choice == 'Invite de saisie de SMS': 
+if panelChoice == 'SMS analysis': 
     
-    smsToAnalyze = st.text_input('Type your message')
+    smsToAnalyze = st.text_input('Type your message:')
 
-    startButton = st.button(
-        'Start the analysis'
-    )
+    ### the radio buttons about the 2 different models will be displayed
+    modelChoice = st.radio('Choose your model:', ('Scikit-Learn', 'TensorFlow'))
+
+    startButton = st.button('Start the analysis')
 
     if startButton:
         
         if (smsToAnalyze != ''):
+            
             st.write('Your message is " ', smsToAnalyze, '".')
+
+            if (modelChoice == 'Scikit-Learn'):
+                ### start the analysis with Scikit-Learn
+                st.write('You chose the model " ', modelChoice, '".')
+            else:
+                ### start the analysis with TensorFlow
+                st.write('You chose the model " ', modelChoice, '".')
+
         else:
             st.write('Please start to write a SMS before clicking on the button.')
+
     else:
         st.write('')
