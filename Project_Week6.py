@@ -90,7 +90,7 @@ df = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_W
 ##### Set up sidebar.
 ##########
 
-st.sidebar.title("Table des matières")
+st.sidebar.title("INDEX")
 panelChoice = st.sidebar.radio('Presentation:', ('Home', 'Preprocessing & NLP', 'The models', 'SMS analysis'))
 
 ##########
