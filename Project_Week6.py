@@ -97,8 +97,19 @@ panelChoice = st.sidebar.radio('Presentation:', ('Home', 'Preprocessing & NLP', 
 ##### Set up main app.
 ##########
 
+if (panelChoice == 'Home'):
 
-if panelChoice == 'SMS analysis': 
+    st.write('You are in the "HOME" panel.')
+
+elif (panelChoice == 'Preprocessing & NLP'):
+
+    st.write('You are in the "Preprocessing & NLP" panel.')
+
+elif (panelChoice == 'The models'):
+
+    st.write('You are in the "The models" panel.')
+
+else (panelChoice == 'SMS analysis'): 
     
     smsToAnalyze = st.text_input('Type your message:')
 
