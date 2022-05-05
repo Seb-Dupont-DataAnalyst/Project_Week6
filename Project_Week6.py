@@ -12,7 +12,6 @@ from sklearn.pipeline import Pipeline
 import io
 import re
 import string
-import tqdm
 import pandas as pd
 from tensorflow.keras import layers
 
@@ -20,7 +19,11 @@ from tensorflow.keras import layers
 
 # CONFIG #
 
-st.set_page_config(page_title="SMS SPAM Project",
+<<<<<<< HEAD
+st.set_page_config(page_title="SMS analysis",
+=======
+st.set_page_config(page_title="SMS analysis",
+>>>>>>> c76547a8253cea605205327d7fe30bafa968da47
                    page_icon="📈",
                    layout="wide",
                    initial_sidebar_state="expanded")
