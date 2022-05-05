@@ -98,6 +98,5 @@ choice = st.sidebar.radio('Etapes de présentation :', ('Accueil', 'NLP et prepr
 
 
 if choice == 'Invite de saisie de SMS': 
-    st.write('Hello')
-    title = st.text_input('Movie title', 'Life of Brian')
+    title = st.text_input('Type your message')
     st.write('The current movie title is', title)
