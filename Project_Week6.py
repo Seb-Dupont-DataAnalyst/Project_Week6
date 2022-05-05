@@ -90,6 +90,7 @@ df = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_W
 ##########
 
 st.sidebar.title("Table des matières")
+
 week = st.sidebar.radio(
     'Etapes de présentation :',
     ('Accueil', 'NLP et preprocessing', 'Présentation des modèles', 'Invite de saisie de SMS')
@@ -99,3 +100,4 @@ week = st.sidebar.radio(
 ##########
 ##### Set up main app.
 ##########
+
