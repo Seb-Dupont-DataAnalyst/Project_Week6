@@ -68,6 +68,11 @@ df = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_W
 
 
 st.sidebar.title("Table des matières")
-week = st.sidebar.radio('Etapes de présentation :', ('Accueil', 'NLP et preprocessing', 'Présentation des modèles', 'Invite de saisie de SMS'))
+choice = st.sidebar.radio('Etapes de présentation :', ('Accueil', 'NLP et preprocessing', 'Présentation des modèles', 'Invite de saisie de SMS'))
 
 
+
+if choice == 'Invite de saisie de SMS': 
+    st.write('Hello')
+    title = st.text_input('Movie title', 'Life of Brian')
+    st.write('The current movie title is', title)
