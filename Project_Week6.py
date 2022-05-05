@@ -12,7 +12,6 @@ from sklearn.pipeline import Pipeline
 import io
 import re
 import string
-import tqdm
 import pandas as pd
 from tensorflow.keras import layers
 
