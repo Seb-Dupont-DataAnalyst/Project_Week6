@@ -25,7 +25,7 @@ st.set_page_config(page_title="IOWA Project",
                    layout="wide",
                    initial_sidebar_state="expanded")
 
-st.markdown('<style>' + open('style.css').read() + '</style>', unsafe_allow_html=True)
+#st.markdown('<style>' + open('style.css').read() + '</style>', unsafe_allow_html=True)
 
 st.markdown("""
     <style>
@@ -65,7 +65,7 @@ def load_df(url):
 
 # DATA #
 
-df = pd.read_csv("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
+df = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
 
 
 st.sidebar.title("Table des matières")
