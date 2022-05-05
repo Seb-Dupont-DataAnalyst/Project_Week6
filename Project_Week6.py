@@ -19,7 +19,7 @@ from tensorflow.keras import layers
 
 # CONFIG #
 
-st.set_page_config(page_title="IOWA Project",
+st.set_page_config(page_title="SMS analysis",
                    page_icon="📈",
                    layout="wide",
                    initial_sidebar_state="expanded")
