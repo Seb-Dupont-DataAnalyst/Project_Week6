@@ -96,10 +96,10 @@ def load_df(url):
 
 dfsms = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
 
-pickle_in = open('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/sklearn_mlp_model.pkl', 'rb')
+pickle_in = open('sklearn_mlp_model.pkl', 'rb')
 mlp_model = pickle.load(pickle_in) 
 
-pickle_count_vect = open('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/count_vect_only.pkl', 'rb')
+pickle_count_vect = open('count_vect_only.pkl', 'rb')
 count_vect_model = pickle.load(pickle_count_vect) 
 
 dfsms = dfsms.dropna()
