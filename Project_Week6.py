@@ -257,35 +257,59 @@ elif (panelChoice == 'Preprocessing & NLP'):
     st.write('TFIDF')
 
 elif (panelChoice == 'The models'):
+    modelChoice = st.sidebar.radio('Models:', ('Scikit-Learn', 'Tensorflow'))
+    
 
+    
     col1, col2, col3 = st.columns([1, 3, 1])
 
     with col1:
         st.write('')
     with col2:
         st.title('Models comparison')
+        space(1)
     with col3:
         st.write('')
+        
+    if modelChoice == 'Scikit-Learn':
+
+        cols = st.columns(2)
+
+            
+        with cols[0]:
+            
+            st.subheader('Perceptron :')
+            st.write('Using CountVectorizer :')
+            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_ppn_cvect.png')
+            st.write('Using Tfidf :')
+            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_ppn_tfidf.png')
+
+        with cols[1]:
+            st.subheader('Multi-Layer Perceptron :')
+            st.write('Without tuning')
+            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_mlp_countvect.png')
+            st.write('With tuning')
+            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_mlp_countvect_tuned.png')
+
     
-    space(1)
-    st.header('SCIKIT-LEARN')
 
-    cols = st.columns(2)
+    if modelChoice == 'Tensorflow':
 
-    with cols[0]:
-        st.subheader('Perceptron :')
-        space(1)
-        st.write('Using CountVectorizer :')
-        st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_ppn_cvect.png')
-        space(1)
-        st.write('Using Tfidf :')
-        st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_ppn_tfidf.png')
+        cols = st.columns(3)
 
-    with cols[1]:
-        st.subheader('Multi_Layer Perceptron :')
-        st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/spam_wordcloud.png')
+        with cols[0]:
+            st.write('Without tuning :')
+            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_countvect_tensorflow.png')
 
-    st.write('TENSORFLOW')
+        with cols[1]:
+            st.write('Tuning method 1 :')
+            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_countvect_tensorflow_1.png')
+
+        with cols[2]:   
+            st.write('Tuning method 2 :')
+            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_countvect_tensorflow_1.png')
+
+
 
 elif (panelChoice == 'SMS analysis'): 
      
