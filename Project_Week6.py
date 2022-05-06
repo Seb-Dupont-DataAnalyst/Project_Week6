@@ -98,7 +98,6 @@ def load_df(url):
 dfsms = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
 
 
-
 mLink = 'https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/sklearn_mlp_model.pkl'
 mfile = BytesIO(requests.get(mLink).content)
 mlp_model = pickle.load(mfile)
@@ -114,42 +113,7 @@ mLink2 = 'https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6
 mfile2 = BytesIO(requests.get(mLink2).content)
 count_vect_model = pickle.load(mfile2)
 
-dfsms = dfsms.dropna()
 
-X = dfsms['message']
-y = dfsms['target']
-
-X_vect = count_vect_model.transform(X)
-X_array = X_vect.toarray()
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X_array,
-    y,
-    test_size=0.3,
-    random_state=0
-    )
-
-def create_model():
-    model = tf.keras.models.Sequential([
-    tf.keras.layers.Flatten(),
-    tf.keras.layers.Dense(32, activation='sigmoid'),
-    tf.keras.layers.Dropout(.2),
-    tf.keras.layers.Dense(64, activation='relu'),
-    tf.keras.layers.Dropout(.2),
-    tf.keras.layers.Dense(1, activation='hard_sigmoid')
-    ])
-
-    model.compile(optimizer='adam',
-                loss="BinaryCrossentropy",
-                metrics=['accuracy'])
-
-    return model
-
-clf = KerasClassifier(create_model,verbose=2, epochs=10)
-
-pipeline_tensorflow = Pipeline([
-                ("clf",  clf)
-            ]).fit(X_train, y_train)
 
 ##########
 ##### Set up sidebar.
@@ -213,7 +177,42 @@ elif (panelChoice == 'The models'):
     st.write('TENSORFLOW')
 
 else: 
-    
+    dfsms = dfsms.dropna()
+
+    X = dfsms['message']
+    y = dfsms['target']
+
+    X_vect = count_vect_model.transform(X)
+    X_array = X_vect.toarray()
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X_array,
+        y,
+        test_size=0.3,
+        random_state=0
+        )
+
+    def create_model():
+        model = tf.keras.models.Sequential([
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(32, activation='sigmoid'),
+        tf.keras.layers.Dropout(.2),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dropout(.2),
+        tf.keras.layers.Dense(1, activation='hard_sigmoid')
+        ])
+
+        model.compile(optimizer='adam',
+                    loss="BinaryCrossentropy",
+                    metrics=['accuracy'])
+
+        return model
+
+    clf = KerasClassifier(create_model,verbose=2, epochs=10)
+
+    pipeline_tensorflow = Pipeline([
+                    ("clf",  clf)
+                ]).fit(X_train, y_train)
     nlp = spacy.load("en_core_web_sm")
     stopwordsenglish = nltk.corpus.stopwords.words("english")
 
