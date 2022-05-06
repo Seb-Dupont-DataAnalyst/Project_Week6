@@ -205,8 +205,8 @@ def nlp_preprocess_pipeline(tmpText):
 ##### Set up sidebar.
 ##########
 
-st.sidebar.title("INDEX")
-panelChoice = st.sidebar.radio('Presentation:', ('Home', 'The dataset', 'Preprocessing & NLP', 'The models', 'SMS analysis', 'Conclusion'))
+st.sidebar.title("Welcome :open_hands:")
+panelChoice = st.sidebar.radio('', ('Home', 'The dataset', 'Preprocessing & NLP', 'The models', 'SMS analysis', 'Conclusion'))
 
 ##########
 ##### Set up main app.
@@ -344,8 +344,7 @@ elif (panelChoice == 'The models'):
 elif (panelChoice == 'SMS analysis'): 
      
     st.title('The "Spam Checker"')
-    space(1)
-    title = st.text_input('Type your message')
+    title = st.text_input('Type your message and press enter')
     result ="" 
     #st.write('SMS to classify : ', title)
     choix_techno = st.radio('What technology do you want to use ?', ('Scikit Learn', 'Tensorflow'))
