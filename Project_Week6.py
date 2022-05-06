@@ -240,10 +240,10 @@ elif (panelChoice == 'The dataset'):
 
     space(1)
     st.subheader('The "SMS Spam Collection": 📲')
-    st.write('425 SMS extracted from the Grumbletext Web site (UK forum).')
-    st.write('450 SMS extracted from the Caroline Tag\'s PhD Theses.')
-    st.write('3375 SMS extracted from the NUS SMS Corpus (NSC ; 10 000 legitimate messages from Singapore).')
-    st.write('1002 SMS ham messages and 322 spam messages from the SMS Spam Corpus v.0.1 Big.')
+    st.write('- 425 SMS extracted from the Grumbletext Web site (UK forum).')
+    st.write('- 450 SMS extracted from the Caroline Tag\'s PhD Theses.')
+    st.write('- 3375 SMS extracted from the NUS SMS Corpus (NSC ; 10 000 legitimate messages from Singapore).')
+    st.write('- 1002 SMS ham messages and 322 spam messages from the SMS Spam Corpus v.0.1 Big.')
     space(1)
     st.write('A total of 5,574 messages divided between 4,827 SMS legitimate messages (86.6%) and 747 (13.4%) spam messages.')
       
@@ -279,11 +279,15 @@ elif (panelChoice == 'Preprocessing & NLP'):
     space(1)
     st.subheader('2. Lemmatization')
     st.write('Words like "text", "texted" and "texting" share the same root')
-    st.write('Lemmatization identify them so they are not treated as different words within the analysis')
+    st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/lemmatisation.png')
+    st.write('Lemmatization identifies them so they are not treated as different words within the analysis')
     space(1)
     st.subheader('3. Vectorizing')
     st.write('Machine learning models can\'t work on words, we need to transform them into numerical vectors')
     st.write('Tests showed better results using the "CountVectorizer" method')
+    space(1)
+    st.subheader('4. Creating a pipeline')
+    st.write('These pre-processing steps are applied to any submitted SMS')
 
 elif (panelChoice == 'The models'):
     modelChoice = st.sidebar.radio('Models:', ('Scikit-Learn', 'Tensorflow'))
