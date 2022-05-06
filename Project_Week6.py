@@ -89,7 +89,7 @@ def space(n):
 
 def load_df(url):
     return pd.read_csv(url)
-    
+
 @st.cache(suppress_st_warning=True)
 def create_model():
         model = tf.keras.models.Sequential([
@@ -242,6 +242,22 @@ elif (panelChoice == 'Preprocessing & NLP'):
 elif (panelChoice == 'The models'):
 
     st.write('SCIKIT-LEARN')
+
+        cols = st.columns(2)
+
+    with cols[0]:
+        st.subheader('Perceptron :')
+        space(1)
+        st.write('Using CountVectorizer :')
+        st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_ppn_cvect.png')
+        space(1)
+        st.write('Using Tfidf :')
+        st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_ppn_tfidf.png')
+
+    with cols[1]:
+        st.subheader('Multi_Layer Perceptron :')
+        st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/spam_wordcloud.png')
+        
     st.write('TENSORFLOW')
 
 elif (panelChoice == 'SMS analysis'): 
