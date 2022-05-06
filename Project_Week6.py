@@ -206,7 +206,7 @@ def nlp_preprocess_pipeline(tmpText):
 ##########
 
 st.sidebar.title("INDEX")
-panelChoice = st.sidebar.radio('Presentation:', ('Home', 'The dataset', 'Preprocessing & NLP', 'The models', 'SMS analysis'))
+panelChoice = st.sidebar.radio('Presentation:', ('Home', 'The dataset', 'Preprocessing & NLP', 'The models', 'SMS analysis', 'Conclusion'))
 
 ##########
 ##### Set up main app.
@@ -358,3 +358,16 @@ elif (panelChoice == 'SMS analysis'):
                     st.success('The message you just typed is not a Spam')
                 if result == 1:
                     st.warning('The message you just typed is a Spam')
+
+elif (panelChoice == 'Conclusion'):
+    space(2)
+    col1, col2, col3 = st.columns([1, 3, 1])
+
+    with col1:
+        st.write('')
+    with col2:
+        st.image("https://marketingonline.gratis/wp-content/uploads/2021/12/gif-thanks-for-your-attention.gif", width=800)
+        
+    with col3:
+        st.write('')
+    
