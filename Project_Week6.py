@@ -22,9 +22,19 @@ from sklearn.pipeline import Pipeline
 import io
 import re
 import string
-import pandas as pd
-import tensorflow
 from tensorflow.keras import layers
+import pickle
+import spacy
+from nltk.stem import SnowballStemmer
+import nltk
+nltk.download('popular')
+from nltk.stem import PorterStemmer
+from nltk.tokenize import sent_tokenize, word_tokenize
+import string
+from nltk.corpus import stopwords
+import dill as pickle
+import tensorflow as tf
+from keras.wrappers.scikit_learn import KerasClassifier
 
 
 ##########
@@ -84,8 +94,50 @@ def load_df(url):
 ##### DATASET
 ##########
 
-df = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
+dfsms = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
 
+pickle_in = open('sklearn_mlp_model.pkl', 'rb')
+mlp_model = pickle.load(pickle_in) 
+
+pickle_count_vect = open('count_vect_only.pkl', 'rb')
+count_vect_model = pickle.load(pickle_count_vect) 
+
+dfsms = dfsms.dropna()
+
+X = dfsms['message']
+y = dfsms['target']
+
+X_vect = count_vect_model.transform(X)
+X_array = X_vect.toarray()
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X_array,
+    y,
+    test_size=0.3,
+    random_state=0
+    )
+
+def create_model():
+    model = tf.keras.models.Sequential([
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(32, activation='sigmoid'),
+    tf.keras.layers.Dropout(.2),
+    tf.keras.layers.Dense(64, activation='relu'),
+    tf.keras.layers.Dropout(.2),
+    tf.keras.layers.Dense(1, activation='hard_sigmoid')
+    ])
+
+    model.compile(optimizer='adam',
+                loss="BinaryCrossentropy",
+                metrics=['accuracy'])
+
+    return model
+
+clf = KerasClassifier(create_model,verbose=2, epochs=10)
+
+pipeline_tensorflow = Pipeline([
+                ("clf",  clf)
+            ]).fit(X_train, y_train)
 
 ##########
 ##### Set up sidebar.
@@ -125,28 +177,77 @@ elif (panelChoice == 'The models'):
 
 else: 
     
-    smsToAnalyze = st.text_input('Type your message:')
+    nlp = spacy.load("en_core_web_sm")
+    stopwordsenglish = nltk.corpus.stopwords.words("english")
 
-    ### the radio buttons about the 2 different models will be displayed
-    modelChoice = st.radio('Choose your model:', ('Scikit-Learn', 'TensorFlow'))
+    def wordsCleaning(tmpSMS, tmpTokenizer, stopwordsENG):
 
-    startButton = st.button('Start the analysis')
-
-    if startButton:
+        endArray = []
         
-        if (smsToAnalyze != ''):
-            
-            st.write('Your message is " ', smsToAnalyze, '".')
+        tmpWords = tmpTokenizer.tokenize(tmpSMS)
 
-            if (modelChoice == 'Scikit-Learn'):
-                ### start the analysis with Scikit-Learn
-                st.write('You chose the model " ', modelChoice, '".')
+        ### parsing the words of the given array
+        for tmpSingleWord in tmpWords:
+        
+            ### checking if the word is a stop word or not
+            if tmpSingleWord in stopwordsENG:
+                pass
             else:
-                ### start the analysis with TensorFlow
-                st.write('You chose the model " ', modelChoice, '".')
+                endArray.append(tmpSingleWord)
 
-        else:
-            st.write('Please start to write a SMS before clicking on the button.')
+        return endArray
 
-    else:
-        st.write('')
+    def purge(s):
+        s_finale=[x for x in s if x not in string.punctuation]
+        s_finale= " ".join(s_finale)
+        l_finale = [x for x in s_finale.split(" ") if x.lower() not in stopwords.words("english") and x!=" "]
+        return l_finale
+
+    def lemma(texts):
+        list_sentence = []
+        for text in texts :
+            sent_tokens = nlp(text)
+            for token in sent_tokens:
+                list_sentence.append(token.lemma_)
+                text_clean = " ".join(list_sentence)
+        return text_clean
+
+    def nlp_preprocess_pipeline(tmpText):
+        tmpDf = pd.DataFrame(data=[tmpText], columns = ['text'])
+        tokenizer = nltk.RegexpTokenizer(r"\w+")
+        tmpDf['words'] = tmpDf['text'].apply(lambda w: wordsCleaning(w, tokenizer, stopwordsenglish))
+        tmpDf['message'] = tmpDf["words"].apply(purge)
+        tmpDf['message'] = tmpDf['message'].apply(lemma)
+        return tmpDf.iloc[0,2]
+
+
+    title = st.text_input('Type your message')
+    result ="" 
+    #st.write('SMS to classify : ', title)
+    choix_techno = st.radio('What technology do you want to use ?', ('Scikit Learn', 'Tensorflow'))
+
+    if title != '':
+        title_vect = nlp_preprocess_pipeline(title)
+        
+        if choix_techno == 'Scikit Learn':            
+            process = mlp_model.predict([title_vect])
+            if st.button("Launch process"):
+                result = process
+                if result == 0:
+                    st.success('The message you just typed is not a Spam')
+                if result == 1:
+                    st.warning('The message you just typed is a Spam')
+   
+    
+        if choix_techno == 'Tensorflow':
+            
+            count_vect = count_vect_model
+            title_vect_tf = count_vect.transform([title_vect])  
+            title_array = title_vect_tf.toarray()    
+            process = pipeline_tensorflow.predict(title_array)
+            if st.button("Launch process"):
+                result = process
+                if result == 0:
+                    st.success('The message you just typed is not a Spam')
+                if result == 1:
+                    st.warning('The message you just typed is a Spam')
