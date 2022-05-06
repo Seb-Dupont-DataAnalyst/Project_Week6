@@ -264,10 +264,17 @@ elif (panelChoice == 'Preprocessing & NLP'):
 
     st.title('Preprocessing & NLP')
     
-    st.write('Removing the english stop words')
-    st.write('Lemmatization')
-    st.write('CountVectorizer')
-    st.write('TFIDF')
+    st.subheader('Removing the english stop words')
+    
+    st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/Hammeuh.png')
+    st.write('Stopwords : not useful for text analysis, but the most common words in the sms')
+
+    st.subheader('Lemmatization')
+    st.write('Words like "text", "texted" and "texting" share the same root')
+    st.write('Lemmatization identify them so they are not treated as different words within the analysis')
+    st.subheader('Vectorizing')
+    st.write('Machine learning models can\'t work on words, we need to transform them into numerical vectors')
+    st.write('Tests showed better results using the "CountVectorizer"')
 
 elif (panelChoice == 'The models'):
     modelChoice = st.sidebar.radio('Models:', ('Scikit-Learn', 'Tensorflow'))
