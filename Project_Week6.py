@@ -229,11 +229,24 @@ if (panelChoice == 'Home'):
 
 elif (panelChoice == 'The dataset'):
 
-    st.write('The "SMS Spam Collection": ')
-    st.write('- 425 SMS extracted from the Grumbletext Web site (UK forum).')
-    st.write('- 450 SMS extracted from the Caroline Tag\'s PhD Theses.')
-    st.write('- 3375 SMS extracted from the NUS SMS Corpus (NSC ; 10 000 legitimate messages from Singapore).')
-    st.write('- 1002 SMS ham messages and 322 spam messages from the SMS Spam Corpus v.0.1 Big.')
+    col1, col2, col3 = st.columns([1, 3, 1])
+
+    with col1:
+        st.write('')
+    with col2:
+        st.title('Dataset Exploration')
+    with col3:
+        st.write('')
+
+    space(1)
+    st.subheader('The "SMS Spam Collection": 📲')
+    st.write('425 SMS extracted from the Grumbletext Web site (UK forum).')
+    st.write('450 SMS extracted from the Caroline Tag\'s PhD Theses.')
+    st.write('3375 SMS extracted from the NUS SMS Corpus (NSC ; 10 000 legitimate messages from Singapore).')
+    st.write('1002 SMS ham messages and 322 spam messages from the SMS Spam Corpus v.0.1 Big.')
+      
+       
+    
 
     space(1)
     
@@ -313,7 +326,8 @@ elif (panelChoice == 'The models'):
 
 elif (panelChoice == 'SMS analysis'): 
      
-
+    st.title('The "Spam Checker"')
+    space(1)
     title = st.text_input('Type your message')
     result ="" 
     #st.write('SMS to classify : ', title)
