@@ -262,12 +262,29 @@ elif (panelChoice == 'The dataset'):
 
 elif (panelChoice == 'Preprocessing & NLP'):
 
-    st.title('Preprocessing & NLP')
+    col1, col2, col3 = st.columns([1, 3, 1])
+
+    with col1:
+        st.write('')
+    with col2:
+        st.title('Preprocessing & NLP')
+    with col3:
+        st.write('')  
     
-    st.write('Removing the english stop words')
-    st.write('Lemmatization')
-    st.write('CountVectorizer')
-    st.write('TFIDF')
+    space(2)
+    
+    st.subheader('1. Removing the english stop words')
+    
+    st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/Hammeuh.png')
+    st.write('Stopwords : not useful for text analysis, but the most common words in the sms')
+    space(1)
+    st.subheader('2. Lemmatization')
+    st.write('Words like "text", "texted" and "texting" share the same root')
+    st.write('Lemmatization identify them so they are not treated as different words within the analysis')
+    space(1)
+    st.subheader('3. Vectorizing')
+    st.write('Machine learning models can\'t work on words, we need to transform them into numerical vectors')
+    st.write('Tests showed better results using the "CountVectorizer" method')
 
 elif (panelChoice == 'The models'):
     modelChoice = st.sidebar.radio('Models:', ('Scikit-Learn', 'Tensorflow'))
@@ -361,7 +378,7 @@ elif (panelChoice == 'SMS analysis'):
 
 elif (panelChoice == 'Conclusion'):
     space(2)
-    col1, col2, col3 = st.columns([1, 3, 1])
+    col1, col2, col3 = st.columns([1, 4, 1])
 
     with col1:
         st.write('')
