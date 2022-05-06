@@ -152,7 +152,7 @@ panelChoice = st.sidebar.radio('Presentation:', ('Home', 'The dataset', 'Preproc
 
 if (panelChoice == 'Home'):
 
-    st.write('You are in the "HOME" panel.')
+    st.title('Welcome to our presentation')
 
 elif (panelChoice == 'The dataset'):
 
