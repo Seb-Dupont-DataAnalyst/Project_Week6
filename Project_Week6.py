@@ -32,9 +32,10 @@ from nltk.stem import PorterStemmer
 from nltk.tokenize import sent_tokenize, word_tokenize
 import string
 from nltk.corpus import stopwords
-import dill as pickle
 import tensorflow as tf
 from keras.wrappers.scikit_learn import KerasClassifier
+import requests
+from io import BytesIO
 
 
 ##########
@@ -96,11 +97,22 @@ def load_df(url):
 
 dfsms = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
 
-pickle_in = open('sklearn_mlp_model.pkl', 'rb')
-mlp_model = pickle.load(pickle_in) 
 
-pickle_count_vect = open('count_vect_only.pkl', 'rb')
-count_vect_model = pickle.load(pickle_count_vect) 
+
+mLink = 'https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/sklearn_mlp_model.pkl'
+mfile = BytesIO(requests.get(mLink).content)
+mlp_model = pickle.load(mfile)
+
+#pickle_in = requests.get('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/sklearn_mlp_model.pkl', 'rb')
+#mlp_model = pickle.load(pickle_in) 
+
+
+#pickle_count_vect = requests.get('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/count_vect_only.pkl', 'rb')
+#count_vect_model = pickle.load(pickle_count_vect) 
+
+mLink2 = 'https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/count_vect_only.pkl'
+mfile2 = BytesIO(requests.get(mLink2).content)
+count_vect_model = pickle.load(mfile2)
 
 dfsms = dfsms.dropna()
 
