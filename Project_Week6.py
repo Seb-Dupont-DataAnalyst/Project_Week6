@@ -164,7 +164,21 @@ elif (panelChoice == 'The dataset'):
 
 elif (panelChoice == 'Preprocessing & NLP'):
 
-    st.write('Getting the words only')
+    st.title('Preprocessing & NLP')
+    space(1)
+    
+
+    cols = st.columns(2)
+
+    with cols[0]:
+        st.subheader('Ham SMS Wordcloud :')
+        st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/ham_wordcloud.png')
+
+    with cols[1]:
+        st.subheader('Spam SMS Wordcloud :')
+        st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/spam_wordcloud.png')
+
+
     st.write('Removing the english stop words')
     st.write('Lemmatization')
     st.write('CountVectorizer')
