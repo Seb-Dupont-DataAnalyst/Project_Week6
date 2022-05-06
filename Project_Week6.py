@@ -217,12 +217,8 @@ elif (panelChoice == 'The dataset'):
     st.write('- 3375 SMS extracted from the NUS SMS Corpus (NSC ; 10 000 legitimate messages from Singapore).')
     st.write('- 1002 SMS ham messages and 322 spam messages from the SMS Spam Corpus v.0.1 Big.')
 
-elif (panelChoice == 'Preprocessing & NLP'):
-
-    st.title('Preprocessing & NLP')
     space(1)
     
-
     cols = st.columns(2)
 
     with cols[0]:
@@ -233,7 +229,10 @@ elif (panelChoice == 'Preprocessing & NLP'):
         st.subheader('Spam SMS Wordcloud :')
         st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/spam_wordcloud.png')
 
+elif (panelChoice == 'Preprocessing & NLP'):
 
+    st.title('Preprocessing & NLP')
+    
     st.write('Removing the english stop words')
     st.write('Lemmatization')
     st.write('CountVectorizer')
