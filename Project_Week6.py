@@ -244,10 +244,9 @@ elif (panelChoice == 'The dataset'):
     st.write('450 SMS extracted from the Caroline Tag\'s PhD Theses.')
     st.write('3375 SMS extracted from the NUS SMS Corpus (NSC ; 10 000 legitimate messages from Singapore).')
     st.write('1002 SMS ham messages and 322 spam messages from the SMS Spam Corpus v.0.1 Big.')
+    space(1)
+    st.write('A total of 5,574 messages divided between 4,827 SMS legitimate messages (86.6%) and 747 (13.4%) spam messages.')
       
-       
-    
-
     space(1)
     
     cols = st.columns(2)
