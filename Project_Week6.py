@@ -89,7 +89,75 @@ def space(n):
 
 def load_df(url):
     return pd.read_csv(url)
+    
+@st.cache(suppress_st_warning=True)
+def create_model():
+        model = tf.keras.models.Sequential([
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(32, activation='sigmoid'),
+        tf.keras.layers.Dropout(.2),
+        tf.keras.layers.Dense(64, activation='relu'),
+        tf.keras.layers.Dropout(.2),
+        tf.keras.layers.Dense(1, activation='hard_sigmoid')
+        ])
 
+        model.compile(optimizer='adam',
+                    loss="BinaryCrossentropy",
+                    metrics=['accuracy'])
+
+        return model
+
+    clf = KerasClassifier(create_model,verbose=2, epochs=10)
+
+    pipeline_tensorflow = Pipeline([
+                    ("clf",  clf)
+                ]).fit(X_train, y_train)
+    nlp = spacy.load("en_core_web_sm")
+    stopwordsenglish = nltk.corpus.stopwords.words("english")
+
+@st.cache(suppress_st_warning=True)
+def wordsCleaning(tmpSMS, tmpTokenizer, stopwordsENG):
+
+    endArray = []
+    
+    tmpWords = tmpTokenizer.tokenize(tmpSMS)
+
+    ### parsing the words of the given array
+    for tmpSingleWord in tmpWords:
+    
+        ### checking if the word is a stop word or not
+        if tmpSingleWord in stopwordsENG:
+            pass
+        else:
+            endArray.append(tmpSingleWord)
+
+    return endArray
+
+@st.cache(suppress_st_warning=True)
+def purge(s):
+    s_finale=[x for x in s if x not in string.punctuation]
+    s_finale= " ".join(s_finale)
+    l_finale = [x for x in s_finale.split(" ") if x.lower() not in stopwords.words("english") and x!=" "]
+    return l_finale
+
+@st.cache(suppress_st_warning=True)
+def lemma(texts):
+    list_sentence = []
+    for text in texts :
+        sent_tokens = nlp(text)
+        for token in sent_tokens:
+            list_sentence.append(token.lemma_)
+            text_clean = " ".join(list_sentence)
+    return text_clean
+
+@st.cache(suppress_st_warning=True)
+def nlp_preprocess_pipeline(tmpText):
+    tmpDf = pd.DataFrame(data=[tmpText], columns = ['text'])
+    tokenizer = nltk.RegexpTokenizer(r"\w+")
+    tmpDf['words'] = tmpDf['text'].apply(lambda w: wordsCleaning(w, tokenizer, stopwordsenglish))
+    tmpDf['message'] = tmpDf["words"].apply(purge)
+    tmpDf['message'] = tmpDf['message'].apply(lemma)
+    return tmpDf.iloc[0,2]
 
 ##########
 ##### DATASET
@@ -176,7 +244,7 @@ elif (panelChoice == 'The models'):
     st.write('SCIKIT-LEARN')
     st.write('TENSORFLOW')
 
-else: 
+elif (panelChoice == 'SMS analysis'): 
     dfsms = dfsms.dropna()
 
     X = dfsms['message']
@@ -192,69 +260,7 @@ else:
         random_state=0
         )
 
-    def create_model():
-        model = tf.keras.models.Sequential([
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(32, activation='sigmoid'),
-        tf.keras.layers.Dropout(.2),
-        tf.keras.layers.Dense(64, activation='relu'),
-        tf.keras.layers.Dropout(.2),
-        tf.keras.layers.Dense(1, activation='hard_sigmoid')
-        ])
-
-        model.compile(optimizer='adam',
-                    loss="BinaryCrossentropy",
-                    metrics=['accuracy'])
-
-        return model
-
-    clf = KerasClassifier(create_model,verbose=2, epochs=10)
-
-    pipeline_tensorflow = Pipeline([
-                    ("clf",  clf)
-                ]).fit(X_train, y_train)
-    nlp = spacy.load("en_core_web_sm")
-    stopwordsenglish = nltk.corpus.stopwords.words("english")
-
-    def wordsCleaning(tmpSMS, tmpTokenizer, stopwordsENG):
-
-        endArray = []
-        
-        tmpWords = tmpTokenizer.tokenize(tmpSMS)
-
-        ### parsing the words of the given array
-        for tmpSingleWord in tmpWords:
-        
-            ### checking if the word is a stop word or not
-            if tmpSingleWord in stopwordsENG:
-                pass
-            else:
-                endArray.append(tmpSingleWord)
-
-        return endArray
-
-    def purge(s):
-        s_finale=[x for x in s if x not in string.punctuation]
-        s_finale= " ".join(s_finale)
-        l_finale = [x for x in s_finale.split(" ") if x.lower() not in stopwords.words("english") and x!=" "]
-        return l_finale
-
-    def lemma(texts):
-        list_sentence = []
-        for text in texts :
-            sent_tokens = nlp(text)
-            for token in sent_tokens:
-                list_sentence.append(token.lemma_)
-                text_clean = " ".join(list_sentence)
-        return text_clean
-
-    def nlp_preprocess_pipeline(tmpText):
-        tmpDf = pd.DataFrame(data=[tmpText], columns = ['text'])
-        tokenizer = nltk.RegexpTokenizer(r"\w+")
-        tmpDf['words'] = tmpDf['text'].apply(lambda w: wordsCleaning(w, tokenizer, stopwordsenglish))
-        tmpDf['message'] = tmpDf["words"].apply(purge)
-        tmpDf['message'] = tmpDf['message'].apply(lemma)
-        return tmpDf.iloc[0,2]
+    
 
 
     title = st.text_input('Type your message')
