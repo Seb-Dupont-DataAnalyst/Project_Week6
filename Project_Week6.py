@@ -112,7 +112,11 @@ elif (panelChoice == 'The dataset'):
 
 elif (panelChoice == 'Preprocessing & NLP'):
 
-    st.write('You are in the "Preprocessing & NLP" panel.')
+    st.write('Getting the words only')
+    st.write('Removing the english stop words')
+    st.write('Lemmatization')
+    st.write('CountVectorizer')
+    st.write('TFIDF')
 
 elif (panelChoice == 'The models'):
 
