@@ -116,7 +116,8 @@ elif (panelChoice == 'Preprocessing & NLP'):
 
 elif (panelChoice == 'The models'):
 
-    st.write('You are in the "The models" panel.')
+    st.write('SCIKIT-LEARN')
+    st.write('TENSORFLOW')
 
 else: 
     
