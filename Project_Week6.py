@@ -146,7 +146,7 @@ pipeline_tensorflow = Pipeline([
 nlp = spacy.load("en_core_web_sm")
 stopwordsenglish = nltk.corpus.stopwords.words("english")
 
-@st.cache(suppress_st_warning=True)
+
 def wordsCleaning(tmpSMS, tmpTokenizer, stopwordsENG):
 
     endArray = []
@@ -164,14 +164,14 @@ def wordsCleaning(tmpSMS, tmpTokenizer, stopwordsENG):
 
     return endArray
 
-@st.cache(suppress_st_warning=True)
+
 def purge(s):
     s_finale=[x for x in s if x not in string.punctuation]
     s_finale= " ".join(s_finale)
     l_finale = [x for x in s_finale.split(" ") if x.lower() not in stopwords.words("english") and x!=" "]
     return l_finale
 
-@st.cache(suppress_st_warning=True)
+
 def lemma(texts):
     list_sentence = []
     for text in texts :
@@ -181,7 +181,7 @@ def lemma(texts):
             text_clean = " ".join(list_sentence)
     return text_clean
 
-@st.cache(suppress_st_warning=True)
+
 def nlp_preprocess_pipeline(tmpText):
     tmpDf = pd.DataFrame(data=[tmpText], columns = ['text'])
     tokenizer = nltk.RegexpTokenizer(r"\w+")
@@ -358,8 +358,10 @@ elif (panelChoice == 'SMS analysis'):
                 result = process
                 if result == 0:
                     st.success('The message you just typed is not a Spam')
+                    st.image('https://sagamer.co.za/wp-content/uploads/2019/10/Drake-Hotline-Bling-approve.jpg')
                 if result == 1:
                     st.warning('The message you just typed is a Spam')
+                    st.image('https://litreactor.com/sites/default/files/images/column/headers/drake_ignores_writing_advice.jpg')
    
     
         if choix_techno == 'Tensorflow':
@@ -372,8 +374,10 @@ elif (panelChoice == 'SMS analysis'):
                 result = process
                 if result == 0:
                     st.success('The message you just typed is not a Spam')
+                    st.image('https://sagamer.co.za/wp-content/uploads/2019/10/Drake-Hotline-Bling-approve.jpg')
                 if result == 1:
                     st.warning('The message you just typed is a Spam')
+                    st.image('https://litreactor.com/sites/default/files/images/column/headers/drake_ignores_writing_advice.jpg')
 
 elif (panelChoice == 'Conclusion'):
     space(2)
