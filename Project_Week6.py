@@ -279,7 +279,7 @@ elif (panelChoice == 'Preprocessing & NLP'):
     space(1)
     st.subheader('2. Lemmatization')
     st.write('Words like "text", "texted" and "texting" share the same root')
-    st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/lemmatisation.png')
+    st.image('https://devopedia.org/images/article/227/6785.1570815200.png')
     st.write('Lemmatization identifies them so they are not treated as different words within the analysis')
     space(1)
     st.subheader('3. Vectorizing')
