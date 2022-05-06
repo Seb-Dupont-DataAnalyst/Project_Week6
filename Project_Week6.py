@@ -312,9 +312,9 @@ elif (panelChoice == 'The models'):
         with cols[0]:
             
             st.subheader('Perceptron :')
-            st.write('Using CountVectorizer :')
-            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_ppn_cvect.png')
             st.write('Using Tfidf :')
+            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_ppn_cvect.png')
+            st.write('Using CountVectorizer:')
             st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_ppn_tfidf.png')
 
         with cols[1]:
