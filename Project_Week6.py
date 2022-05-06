@@ -90,30 +90,61 @@ def space(n):
 def load_df(url):
     return pd.read_csv(url)
 
-@st.cache(suppress_st_warning=True)
+
+##########
+##### DATASET
+##########
+
+dfsms = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
+
+
+mLink = 'https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/sklearn_mlp_model.pkl'
+mfile = BytesIO(requests.get(mLink).content)
+mlp_model = pickle.load(mfile)
+
+mLink2 = 'https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/count_vect_only.pkl'
+mfile2 = BytesIO(requests.get(mLink2).content)
+count_vect_model = pickle.load(mfile2)
+
+dfsms = dfsms.dropna()
+
+X = dfsms['message']
+y = dfsms['target']
+
+X_vect = count_vect_model.transform(X)
+X_array = X_vect.toarray()
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X_array,
+    y,
+    test_size=0.3,
+    random_state=0
+    )
+
+
 def create_model():
-        model = tf.keras.models.Sequential([
-        tf.keras.layers.Flatten(),
-        tf.keras.layers.Dense(32, activation='sigmoid'),
-        tf.keras.layers.Dropout(.2),
-        tf.keras.layers.Dense(64, activation='relu'),
-        tf.keras.layers.Dropout(.2),
-        tf.keras.layers.Dense(1, activation='hard_sigmoid')
-        ])
+    model = tf.keras.models.Sequential([
+    tf.keras.layers.Flatten(),
+    tf.keras.layers.Dense(32, activation='sigmoid'),
+    tf.keras.layers.Dropout(.2),
+    tf.keras.layers.Dense(64, activation='relu'),
+    tf.keras.layers.Dropout(.2),
+    tf.keras.layers.Dense(1, activation='hard_sigmoid')
+    ])
 
-        model.compile(optimizer='adam',
-                    loss="BinaryCrossentropy",
-                    metrics=['accuracy'])
+    model.compile(optimizer='adam',
+                loss="BinaryCrossentropy",
+                metrics=['accuracy'])
 
-        return model
+    return model
 
-    clf = KerasClassifier(create_model,verbose=2, epochs=10)
+clf = KerasClassifier(create_model,verbose=2, epochs=10)
 
-    pipeline_tensorflow = Pipeline([
+pipeline_tensorflow = Pipeline([
                     ("clf",  clf)
                 ]).fit(X_train, y_train)
-    nlp = spacy.load("en_core_web_sm")
-    stopwordsenglish = nltk.corpus.stopwords.words("english")
+nlp = spacy.load("en_core_web_sm")
+stopwordsenglish = nltk.corpus.stopwords.words("english")
 
 @st.cache(suppress_st_warning=True)
 def wordsCleaning(tmpSMS, tmpTokenizer, stopwordsENG):
@@ -159,17 +190,6 @@ def nlp_preprocess_pipeline(tmpText):
     tmpDf['message'] = tmpDf['message'].apply(lemma)
     return tmpDf.iloc[0,2]
 
-##########
-##### DATASET
-##########
-
-dfsms = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/dfsms_nlp.csv")
-
-
-mLink = 'https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/sklearn_mlp_model.pkl'
-mfile = BytesIO(requests.get(mLink).content)
-mlp_model = pickle.load(mfile)
-
 #pickle_in = requests.get('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/sklearn_mlp_model.pkl', 'rb')
 #mlp_model = pickle.load(pickle_in) 
 
@@ -177,9 +197,7 @@ mlp_model = pickle.load(mfile)
 #pickle_count_vect = requests.get('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/count_vect_only.pkl', 'rb')
 #count_vect_model = pickle.load(pickle_count_vect) 
 
-mLink2 = 'https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/count_vect_only.pkl'
-mfile2 = BytesIO(requests.get(mLink2).content)
-count_vect_model = pickle.load(mfile2)
+
 
 
 
@@ -240,9 +258,19 @@ elif (panelChoice == 'Preprocessing & NLP'):
 
 elif (panelChoice == 'The models'):
 
-    st.write('SCIKIT-LEARN')
+    col1, col2, col3 = st.columns([1, 3, 1])
 
-        cols = st.columns(2)
+    with col1:
+        st.write('')
+    with col2:
+        st.title('Models comparison')
+    with col3:
+        st.write('')
+    
+    space(1)
+    st.header('SCIKIT-LEARN')
+
+    cols = st.columns(2)
 
     with cols[0]:
         st.subheader('Perceptron :')
@@ -256,27 +284,11 @@ elif (panelChoice == 'The models'):
     with cols[1]:
         st.subheader('Multi_Layer Perceptron :')
         st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/spam_wordcloud.png')
-        
+
     st.write('TENSORFLOW')
 
 elif (panelChoice == 'SMS analysis'): 
-    dfsms = dfsms.dropna()
-
-    X = dfsms['message']
-    y = dfsms['target']
-
-    X_vect = count_vect_model.transform(X)
-    X_array = X_vect.toarray()
-
-    X_train, X_test, y_train, y_test = train_test_split(
-        X_array,
-        y,
-        test_size=0.3,
-        random_state=0
-        )
-
-    
-
+     
 
     title = st.text_input('Type your message')
     result ="" 
