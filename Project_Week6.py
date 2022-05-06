@@ -152,7 +152,18 @@ panelChoice = st.sidebar.radio('Presentation:', ('Home', 'The dataset', 'Preproc
 
 if (panelChoice == 'Home'):
 
-    st.title('Welcome to our presentation')
+    col1, col2, col3 = st.columns([1, 3, 1])
+
+    with col1:
+        st.write('')
+    with col2:
+        st.title('Modeling with Neural Networks')
+    with col3:
+        st.write('')
+
+    space(1)
+    st.image('https://www.sms77.io/wp-content/uploads/SMS-Spam-Header.jpg', width=1200)
+    
 
 elif (panelChoice == 'The dataset'):
 
