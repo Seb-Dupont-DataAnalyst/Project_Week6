@@ -320,7 +320,7 @@ elif (panelChoice == 'The models'):
 
         with cols[2]:   
             st.write('Tuning method 2 :')
-            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_countvect_tensorflow_1.png')
+            st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/disp_countvect_tensorflow_2.png')
 
 
 
