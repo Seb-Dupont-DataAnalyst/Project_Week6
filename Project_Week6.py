@@ -32,7 +32,8 @@ from tensorflow.keras import layers
 ##########
 
 st.set_page_config(page_title="SMS analysis",
-                   page_icon="📈",
+                   page_icon="📲",
+                #    page_icon="📈",
                    layout="wide",
                    initial_sidebar_state="expanded")
 
@@ -91,7 +92,7 @@ df = load_df("https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_W
 ##########
 
 st.sidebar.title("INDEX")
-panelChoice = st.sidebar.radio('Presentation:', ('Home', 'Preprocessing & NLP', 'The models', 'SMS analysis'))
+panelChoice = st.sidebar.radio('Presentation:', ('Home', 'The dataset', 'Preprocessing & NLP', 'The models', 'SMS analysis'))
 
 ##########
 ##### Set up main app.
@@ -100,6 +101,14 @@ panelChoice = st.sidebar.radio('Presentation:', ('Home', 'Preprocessing & NLP', 
 if (panelChoice == 'Home'):
 
     st.write('You are in the "HOME" panel.')
+
+elif (panelChoice == 'The dataset'):
+
+    st.write('The "SMS Spam Collection": ')
+    st.write('- 425 SMS extracted from the Grumbletext Web site (UK forum).')
+    st.write('- 450 SMS extracted from the Caroline Tag\'s PhD Theses.')
+    st.write('- 3375 SMS extracted from the NUS SMS Corpus (NSC ; 10 000 legitimate messages from Singapore).')
+    st.write('- 1002 SMS ham messages and 322 spam messages from the SMS Spam Corpus v.0.1 Big.')
 
 elif (panelChoice == 'Preprocessing & NLP'):
 
