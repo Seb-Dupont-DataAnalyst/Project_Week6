@@ -277,7 +277,7 @@ elif (panelChoice == 'Preprocessing & NLP'):
     st.image('https://raw.githubusercontent.com/Seb-Dupont-DataAnalyst/Project_Week6/main/Hammeuh.png')
     st.write('Stopwords : not useful for text analysis, but the most common words in the sms')
     space(1)
-    st.subheader('2. Lemmatization')
+    st.subheader('2. Stemming or Lemmatization')
     st.write('Words like "text", "texted" and "texting" share the same root')
     st.image('https://devopedia.org/images/article/227/6785.1570815200.png')
     st.write('Lemmatization identifies them so they are not treated as different words within the analysis')
