@@ -359,7 +359,9 @@ elif (panelChoice == 'SMS analysis'):
             process = mlp_model.predict([title_vect])
             if st.button("Launch process"):
                 result = process
-                if result == 0:
+               
+
+                if result == 0: 
                     st.success('The message you just typed is not a Spam')
                     st.image('https://sagamer.co.za/wp-content/uploads/2019/10/Drake-Hotline-Bling-approve.jpg')
                 if result == 1:
